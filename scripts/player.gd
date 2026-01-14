@@ -39,4 +39,4 @@ func _process(delta: float) -> void:
 	pass
 
 
-#HELLO MAKS
+#HELLO MAKSmakktkktktasadadadadadda
