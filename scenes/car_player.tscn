@@ -1,0 +1,118 @@
+[gd_scene load_steps=7 format=3 uid="uid://carplayer0001"]
+
+[ext_resource type="Script" path="res://vehicle_body_3d.gd" id="1_y0d1q"]
+[ext_resource type="PackedScene" path="res://Car-Demo-72bc731edd0dfe25539c033f745bd8126d8a8505/cars/Models/Doge/doge-body.glb" id="2_k1gcv"]
+[ext_resource type="PackedScene" path="res://Car-Demo-72bc731edd0dfe25539c033f745bd8126d8a8505/cars/Models/Doge/Wheel.glb" id="3_8t88g"]
+[ext_resource type="PackedScene" path="res://Car-Demo-72bc731edd0dfe25539c033f745bd8126d8a8505/cars/camera/camera_3d.tscn" id="4_kl1bn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_body"]
+size = Vector3(2, 1, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_speed"]
+font_size = 32
+
+[node name="Car" type="VehicleBody3D"]
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.2, 0)
+script = ExtResource("1_y0d1q")
+front_left_wheel_path = NodePath("WheelFrontLeft")
+front_right_wheel_path = NodePath("WheelFrontRight")
+rear_left_wheel_path = NodePath("WheelRearLeft")
+rear_right_wheel_path = NodePath("WheelRearRight")
+speed_label_path = NodePath("Hud/SpeedLabel")
+
+[node name="WheelFrontLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03, 0.35, -1.55)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.38
+wheel_rest_length = 0.11
+suspension_travel = 0.35
+suspension_stiffness = 30
+wheel_friction_slip = 3.0
+
+[node name="Mesh" parent="WheelFrontLeft" instance=ExtResource("3_8t88g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0, 0)
+
+[node name="WheelFrontRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03, 0.35, -1.55)
+use_as_traction = true
+use_as_steering = true
+wheel_radius = 0.38
+wheel_rest_length = 0.11
+suspension_travel = 0.35
+suspension_stiffness = 30
+wheel_friction_slip = 3.0
+
+[node name="Mesh" parent="WheelFrontRight" instance=ExtResource("3_8t88g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0, 0)
+
+[node name="WheelRearLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03, 0.32, 1.3)
+use_as_traction = true
+wheel_radius = 0.38
+wheel_rest_length = 0.11
+suspension_travel = 0.35
+suspension_stiffness = 30
+wheel_friction_slip = 3.0
+
+[node name="Mesh" parent="WheelRearLeft" instance=ExtResource("3_8t88g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0, 0)
+
+[node name="WheelRearRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03, 0.32, 1.3)
+use_as_traction = true
+wheel_radius = 0.38
+wheel_rest_length = 0.11
+suspension_travel = 0.35
+suspension_stiffness = 30
+wheel_friction_slip = 3.0
+
+[node name="Mesh" parent="WheelRearRight" instance=ExtResource("3_8t88g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("BoxShape3D_body")
+
+[node name="Body" parent="." instance=ExtResource("2_k1gcv")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+
+[node name="Look" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="Camera3D" parent="Look" instance=ExtResource("4_kl1bn")]
+transform = Transform3D(1, 0, 0, 0, 0.97437, 0.224951, 0, -0.224951, 0.97437, 0, 1.8, 5.5)
+target_distance = 6.5
+target_height = 2.5
+speed = 8.0
+
+[node name="Hud" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="SpeedLabel" type="Label" parent="Hud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 60.0
+offset_bottom = -20.0
+horizontal_alignment = 1
+label_settings = SubResource("LabelSettings_speed")
+text = "0 km/h"
+
+[node name="Controls" type="Label" parent="Hud"]
+anchors_preset = 6
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -100.0
+offset_right = 320.0
+offset_bottom = -20.0
+text = "Arrow keys drive\nSpace drifts (ui_select)"
+label_settings = SubResource("LabelSettings_speed")
