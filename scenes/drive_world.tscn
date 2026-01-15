@@ -1,19 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://driveworld0001"]
+[gd_scene load_steps=6 format=3 uid="uid://dkna7y61fxra3"]
 
-[ext_resource type="PackedScene" path="res://scenes/car_player.tscn" id="1_6s7gq"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
-metallic = 0.05
-roughness = 0.9
-albedo_color = Color(0.196078, 0.211765, 0.243137, 1)
-uv1_triplanar = true
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
-size = Vector2(80, 80)
-material = SubResource("StandardMaterial3D_floor")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
-size = Vector3(80, 0.2, 80)
+[ext_resource type="PackedScene" uid="uid://carplayer0001" path="res://scenes/car_player.tscn" id="1_6s7gq"]
 
 [sub_resource type="Environment" id="Environment_default"]
 background_mode = 2
@@ -21,15 +8,28 @@ background_color = Color(0.443137, 0.721569, 0.905882, 1)
 ambient_light_color = Color(0.901961, 0.92549, 0.968627, 1)
 ambient_light_energy = 0.65
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(80, 0.2, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
+albedo_color = Color(0.196078, 0.211765, 0.243137, 1)
+metallic = 0.05
+roughness = 0.9
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+material = SubResource("StandardMaterial3D_floor")
+size = Vector2(80, 80)
+
 [node name="DriveWorld" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_default")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.866025, -0.353553, -0.353553, 0, 0.707107, -0.707107, 0.5, 0.612372, 0.612372, 0, 7, 0)
-shadow_enabled = true
+transform = Transform3D(0.86602527, -0.3535533, -0.35355374, 0.06309949, -0.62417316, 0.77873385, -0.4960028, -0.6967122, -0.51824075, 1.4762392, 7.007211, -0.14780617)
 light_energy = 2.0
+shadow_enabled = true
 
 [node name="Fill" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5, 10)
@@ -44,8 +44,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_floor")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("PlaneMesh_floor")
 material_override = SubResource("StandardMaterial3D_floor")
+mesh = SubResource("PlaneMesh_floor")
 
 [node name="Car" parent="." instance=ExtResource("1_6s7gq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
