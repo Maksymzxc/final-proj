@@ -1,18 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://carplayer0001"]
 
-[ext_resource type="Script" path="res://vehicle_body_3d.gd" id="1_y0d1q"]
-[ext_resource type="PackedScene" path="res://assets/Doge/doge-body.glb" id="2_k1gcv"]
+[ext_resource type="Script" uid="uid://cgrvs38uvb8o7" path="res://vehicle_body_3d.gd" id="1_y0d1q"]
+[ext_resource type="PackedScene" uid="uid://70jjhk25dhbq" path="res://assets/Doge/doge-body.glb" id="2_k1gcv"]
+[ext_resource type="PackedScene" uid="uid://benmjny2guowm" path="res://assets/Doge/Doge/Wheel.glb" id="3_v28l6"]
 [ext_resource type="PackedScene" path="res://assets/camera/camera_3d.tscn" id="4_kl1bn"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wheel"]
-albedo_color = Color(0.141176, 0.14902, 0.160784, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_wheel"]
-top_radius = 0.35
-bottom_radius = 0.35
-height = 0.25
-radial_segments = 24
-material = SubResource("StandardMaterial3D_wheel")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_body"]
 size = Vector3(2, 1, 4)
@@ -36,15 +27,14 @@ use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.38
 wheel_rest_length = 0.11
-suspension_travel = 0.35
-suspension_stiffness = 30
 wheel_friction_slip = 3.0
+suspension_travel = 0.35
+suspension_stiffness = 30.0
 
 [node name="Visual" type="Node3D" parent="WheelFrontLeft"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="WheelFrontLeft/Visual"]
-mesh = SubResource("CylinderMesh_wheel")
+[node name="WheelModel" parent="WheelFrontLeft/Visual" instance=ExtResource("3_v28l6")]
 
 [node name="WheelFrontRight" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03, 0.35, -1.55)
@@ -52,45 +42,42 @@ use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.38
 wheel_rest_length = 0.11
-suspension_travel = 0.35
-suspension_stiffness = 30
 wheel_friction_slip = 3.0
+suspension_travel = 0.35
+suspension_stiffness = 30.0
 
 [node name="Visual" type="Node3D" parent="WheelFrontRight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="WheelFrontRight/Visual"]
-mesh = SubResource("CylinderMesh_wheel")
+[node name="WheelModel" parent="WheelFrontRight/Visual" instance=ExtResource("3_v28l6")]
 
 [node name="WheelRearLeft" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03, 0.32, 1.3)
 use_as_traction = true
 wheel_radius = 0.38
 wheel_rest_length = 0.11
-suspension_travel = 0.35
-suspension_stiffness = 30
 wheel_friction_slip = 3.0
+suspension_travel = 0.35
+suspension_stiffness = 30.0
 
 [node name="Visual" type="Node3D" parent="WheelRearLeft"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14, 0, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="WheelRearLeft/Visual"]
-mesh = SubResource("CylinderMesh_wheel")
+[node name="WheelModel" parent="WheelRearLeft/Visual" instance=ExtResource("3_v28l6")]
 
 [node name="WheelRearRight" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03, 0.32, 1.3)
 use_as_traction = true
 wheel_radius = 0.38
 wheel_rest_length = 0.11
-suspension_travel = 0.35
-suspension_stiffness = 30
 wheel_friction_slip = 3.0
+suspension_travel = 0.35
+suspension_stiffness = 30.0
 
 [node name="Visual" type="Node3D" parent="WheelRearRight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14, 0, 0)
 
-[node name="Mesh" type="MeshInstance3D" parent="WheelRearRight/Visual"]
-mesh = SubResource("CylinderMesh_wheel")
+[node name="WheelModel" parent="WheelRearRight/Visual" instance=ExtResource("3_v28l6")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
@@ -121,19 +108,18 @@ offset_left = -60.0
 offset_top = -80.0
 offset_right = 60.0
 offset_bottom = -20.0
-horizontal_alignment = 1
-label_settings = SubResource("LabelSettings_speed")
 text = "0 km/h"
+label_settings = SubResource("LabelSettings_speed")
+horizontal_alignment = 1
 
 [node name="Controls" type="Label" parent="Hud"]
-anchors_preset = 6
-anchor_left = 0.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
 offset_left = 20.0
 offset_top = -100.0
 offset_right = 320.0
 offset_bottom = -20.0
-text = "Arrow keys drive\nSpace drifts (ui_select)"
+text = "Arrow keys drive
+Space drifts (ui_select)"
 label_settings = SubResource("LabelSettings_speed")
