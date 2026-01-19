@@ -19,13 +19,13 @@ size = Vector3(500, 1, 500)
 environment = SubResource("Environment_sky")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.8660254, 0.49688396, -0.055734474, 0, 0.11146895, 0.9937679, 0.5, -0.86062825, 0.09653494, 40.001198, 80.29012, 40)
+transform = Transform3D(0.8660255, 0.4968839, -0.055734437, 0.19485934, -0.2327475, 0.95281607, 0.46046692, -0.83602333, -0.29838774, -28.722153, 142.52017, 219.43987)
 light_color = Color(1, 0.97, 0.9, 1)
 light_energy = 1.5
 shadow_enabled = true
 
 [node name="FillLight" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.866025, 0.353553, 0.353554, 0, 0.707107, -0.707107, -0.5, 0.612372, 0.612372, -40, 50, -40)
+transform = Transform3D(0.86602515, 0.35355386, 0.35355335, 0.32220283, -0.93532914, 0.14609809, 0.38234237, -0.012608707, -0.9239347, -40, 50, -40)
 light_color = Color(0.75, 0.85, 1, 1)
 light_energy = 0.4
 

@@ -31,6 +31,12 @@ extends VehicleBody3D
 @onready var rear_right_wheel: VehicleWheel3D = _get_wheel(rear_right_wheel_path)
 @onready var speed_label: Label = get_node_or_null(speed_label_path)
 
+func _ready() -> void:
+	# Apply the selected skin color to the car body
+	var body = get_node_or_null("Body")
+	if body and GameSettings:
+		GameSettings.apply_skin_to_car(body)
+
 func _physics_process(delta: float) -> void:
 	var speed: float = linear_velocity.length()
 	_update_speedometer(speed)
