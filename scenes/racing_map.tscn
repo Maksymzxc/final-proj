@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b42kq8hb5n42w"]
+[gd_scene load_steps=7 format=3 uid="uid://b42kq8hb5n42w"]
 
 [ext_resource type="PackedScene" uid="uid://carplayer0001" path="res://scenes/car_player.tscn" id="1_car"]
 [ext_resource type="PackedScene" uid="uid://dntjm7op2dpbw" path="res://assets/race-track/source/SouthLoop.glb" id="2_track"]
@@ -12,6 +12,12 @@ tonemap_mode = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
 size = Vector3(500, 1, 500)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ramp"]
+size = Vector3(10, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ramp"]
+size = Vector3(10, 0.5, 5)
 
 [node name="RacingMap" type="Node3D"]
 
@@ -39,3 +45,14 @@ shape = SubResource("BoxShape3D_ground")
 
 [node name="Car" parent="." instance=ExtResource("1_car")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021919847, 1.0000001, 0.0019569397)
+
+[node name="Ramp" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202015, 0, -0.34202015, 0.9396926, 0, 0.25, 10)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ramp"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/StaticBody3D"]
+shape = SubResource("BoxShape3D_ramp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp"]
+mesh = SubResource("BoxMesh_ramp")
